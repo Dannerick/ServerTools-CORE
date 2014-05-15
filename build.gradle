@@ -123,24 +123,38 @@ task changeLog(type: ChangelogTask) {
 if (!(project.hasProperty('jenkins_user'))) tasks.changeLog.enabled = false
 tasks.build.dependsOn('changeLog')
 
-task signJar(dependsOn: 'reobf') {
-    inputs.file jar.getArchivePath()
-    inputs.file st_keystore
-    inputs.property 'st_keystore_alias', st_keystore_alias
-    inputs.property 'st_keystore_pass', st_keystore_pass
-    outputs.file jar.getArchivePath()
-
+jar.doLast {
     onlyIf { return project.hasProperty('st_keystore') }
 
-    doLast {
-        ant.signJar(
-                destDir: jar.destinationDir,
-                jar: jar.getArchivePath(),
-                keystore: st_keystore,
-                alias: st_keystore_alias,
-                sorepass: st_keystore_pass
-        )
-    }
+    ant.signjar(
+            destDir: jar.destinationDir,
+            jar: jar.getArchivePath(),
+            alias: project.st_keystore_alias,
+            storetype:pkcs12,
+            keystore: project.st_keystore,
+            storepass: project.st_keystore_pass,
+            preservelastmodified: 'true'
+    )
 }
 
-tasks.publish.dependsOn('signJar')
+//task signJar(dependsOn: 'reobf') {
+//    inputs.file jar.getArchivePath()
+//    inputs.file st_keystore
+//    inputs.property 'st_keystore_alias', st_keystore_alias
+//    inputs.property 'st_keystore_pass', st_keystore_pass
+//    outputs.file jar.getArchivePath()
+//
+//    onlyIf { return project.hasProperty('st_keystore') }
+//
+//    doLast {
+//        ant.signJar(
+//                destDir: jar.destinationDir,
+//                jar: jar.getArchivePath(),
+//                keystore: project.st_keystore,
+//                alias: project.st_keystore_alias,
+//                sorepass: project.st_keystore_pass
+//        )
+//    }
+//}
+//
+//tasks.build.dependsOn('signJar')
