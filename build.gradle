@@ -122,3 +122,28 @@ task changeLog(type: ChangelogTask) {
 }
 if (!(project.hasProperty('jenkins_user'))) tasks.changeLog.enabled = false
 tasks.build.dependsOn('changeLog')
+
+task signJar(dependsOn: 'reobf') {
+    inputs.file jar.getArchivePath()
+    inputs.file st_keystore
+    inputs.property 'st_keystore_alias', st_keystore_alias
+    inputs.property 'st_keystore_pass', st_keystore_pass
+    outputs.file jar.getArchivePath()
+
+    onlyIf { return project.hasProperty('st_keystore') }
+
+    doLast {
+        ant.signJar(
+                destDir: jar.destinationDir,
+                jar: jar.getArchivePath(),
+                keystore: st_keystore,
+                alias: st_keystore_alias,
+                sorepass: st_keystore_pass
+        )
+    }
+}
+
+task release() {
+    dependsOn: 'build'
+    dependsOn: 'signJar'
+}
