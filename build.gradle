@@ -50,6 +50,9 @@ targetCompatibility = '1.7'
 jar.manifest {
     attributes 'FMLCorePlugin': 'com.matthewprenger.servertools.core.asm.STPlugin'
     attributes 'FMLCorePluginContainsFMLMod': 'true'
+
+    attributes 'Specification-Version': project.version
+    attributes 'Specification-Title': project.name
 }
 
 processResources {

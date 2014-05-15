@@ -16,6 +16,8 @@
 
 package com.matthewprenger.servertools.core;
 
+import com.google.common.base.Strings;
+
 public final class STVersion {
 
     private STVersion() {
@@ -54,25 +56,27 @@ public final class STVersion {
     // TODO Add version check capability
 
     /**
-     * Check to see if a module's {@link java.lang.Package#implVersion Implementation-Version} is equal to ServerTool's Version
+     * Check if the minimum version requirement for CORE is met
+     * The game will halt if it is not
      *
-     * The game will not load if they are unequal
-     *
-     * @param clazz a class to use
+     * @param minCoreVersion the minimum CORE version
      */
-    public static void checkModuleVersion(Class clazz) {
+    public static void checkVersion(String minCoreVersion) {
 
-        if (BUILD.equals(String.valueOf('@') + "VERSION_BUILD@")) {
-            ServerTools.log.warn("We are in a development environment");
+        if (minCoreVersion.contains("@") || Strings.isNullOrEmpty(STVersion.class.getPackage().getSpecificationVersion())) {
+            ServerTools.log.warn("Development environment detected");
             return;
         }
 
-        String moduleVersion = clazz.getPackage().getImplementationVersion();
+        boolean compatable;
+        try {
+            compatable = STVersion.class.getPackage().isCompatibleWith(minCoreVersion);
+        } catch (NumberFormatException e) {
+            compatable = false;
+        }
 
-        if (!VERSION.equals(moduleVersion)) {
-
-            ServerTools.log.fatal("Module: {} version does not match the ServerTools core version, please download matching ServerTools module versions", clazz.getName());
-            throw new RuntimeException("Mismatched Module Versions");
+        if (!compatable) {
+            throw new RuntimeException("Minimum ServerTools-CORE version required is: " + minCoreVersion);
         }
     }
 }
