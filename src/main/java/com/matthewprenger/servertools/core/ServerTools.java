@@ -55,8 +55,10 @@ public class ServerTools {
 
     @Mod.EventHandler
     public void invalidCert(FMLFingerprintViolationEvent event) {
-        log.warn("Found fingerprint: {}", event.fingerprints.toString());
+
+        log.warn("Invalid ServerTools fingerprint detected: {}", event.fingerprints.toString());
         log.warn("Expected: {}", event.expectedFingerprint);
+        log.warn("Unpredictable results my occur");
     }
 
     @Mod.EventHandler
