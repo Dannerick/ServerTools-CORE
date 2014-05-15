@@ -39,6 +39,9 @@ minecraft {
     replace '@VERSION_REV@', versionRev
     replace '@VERSION_BUILD@', versionBuild
     replace '@MCVERSION@', minecraftVersion
+
+    if (project.hasProperty('st_keystore_cf'))
+        replace '@FINGERPRINT@', project.st_keystore_cf
 }
 
 sourceCompatibility = '1.7'
@@ -137,5 +140,7 @@ task signJar(dependsOn: 'jar') {
         )
     }
 }
+
+tasks.build.dependsOn 'signJar'
 
 task release(dependsOn: [build, signJar, publish])

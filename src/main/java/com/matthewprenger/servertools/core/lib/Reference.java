@@ -26,6 +26,7 @@ public class Reference {
     public static final String MOD_ID = "ServerTools";
     public static final String MOD_NAME = MOD_ID;
     public static final String DEPENDENCIES = "required-after:Forge@[10.12.1.1060,)";
+    public static final String FINGERPRINT = "@FINGERPRINT@";
 
     public static final List<String> AUTHORS = ImmutableList.of("matthewprenger");
 
