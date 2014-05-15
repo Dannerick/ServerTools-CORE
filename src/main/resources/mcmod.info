@@ -1,0 +1,12 @@
+[
+{
+  "modid": "ServerTools",
+  "name": "ServerTools",
+  "version": "${version}",
+  "description": "Server administration and utilities mod",
+  "url": "https://github.com/matthewprenger/ServerTools",
+  "authors": ["matthewprenger"],
+  "credits": "Forge, FML, and MCP for making this project possible",
+  "dependencies": []
+}
+]
