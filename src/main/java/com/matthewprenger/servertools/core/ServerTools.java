@@ -54,6 +54,12 @@ public class ServerTools {
     public BlockLogger blockLogger;
 
     @Mod.EventHandler
+    public void invalidCert(FMLFingerprintViolationEvent event) {
+        log.warn("Found fingerprint: {}", event.fingerprints.toString());
+        log.warn("Expected: {}", event.expectedFingerprint);
+    }
+
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
         log.info(String.format("Initializing ServerTools %s for Minecraft %s", STVersion.VERSION, STVersion.MCVERSIONN));
