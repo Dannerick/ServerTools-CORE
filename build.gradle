@@ -130,7 +130,6 @@ jar.doLast {
             destDir: jar.destinationDir,
             jar: jar.getArchivePath(),
             alias: project.st_keystore_alias,
-            storetype:pkcs12,
             keystore: project.st_keystore,
             storepass: project.st_keystore_pass,
             preservelastmodified: 'true'
