@@ -120,5 +120,5 @@ task changeLog(type: ChangelogTask) {
     setTargetBuild({buildNumber.toString()})
     setOutput(new DelayedFile(project, 'build/distributions/' + project.getName() + '-' + project.version + '-changelog.txt'))
 }
-if (project.hasProperty('jenkins_user')) tasks.changeLog.enabled = false
+if (!(project.hasProperty('jenkins_user'))) tasks.changeLog.enabled = false
 tasks.build.dependsOn('changeLog')
