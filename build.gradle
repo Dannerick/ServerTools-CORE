@@ -113,17 +113,18 @@ import net.minecraftforge.gradle.delayed.DelayedString
 import net.minecraftforge.gradle.delayed.DelayedFile
 
 task changeLog(type: ChangelogTask) {
-    onlyIf { return project.hasProperty('jenkins_user') }
+    if(project.hasProperty('jenkins_user')) {
 
-    def jobName = "${System.getenv().JOB_NAME}"
-    def buildNumber = "${System.getenv().BUILD_NUMBER}"
+        def jobName = "${System.getenv().JOB_NAME}"
+        def buildNumber = "${System.getenv().BUILD_NUMBER}"
 
-    setServerRoot(new DelayedString(project, 'http://direct.matthewprenger.com:8080/'))
-    setJobName(new DelayedString(project, jobName.toString()))
-    setAuthName(new DelayedString(project, project.jenkins_user))
-    setAuthPassword(new DelayedString(project, project.jenkins_pass))
-    setTargetBuild({buildNumber.toString()})
-    setOutput(new DelayedFile(project, 'build/distributions/' + project.getName() + '-' + project.version + '-changelog.txt'))
+        setServerRoot(new DelayedString(project, 'http://direct.matthewprenger.com:8080/'))
+        setJobName(new DelayedString(project, jobName.toString()))
+        setAuthName(new DelayedString(project, project.jenkins_user))
+        setAuthPassword(new DelayedString(project, project.jenkins_pass))
+        setTargetBuild({ buildNumber.toString() })
+        setOutput(new DelayedFile(project, 'build/distributions/' + project.getName() + '-' + project.version + '-changelog.txt'))
+    }
 }
 tasks.build.dependsOn('changeLog')
 
