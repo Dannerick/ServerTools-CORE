@@ -143,7 +143,4 @@ task signJar(dependsOn: 'reobf') {
     }
 }
 
-task release() {
-    dependsOn: 'build'
-    dependsOn: 'signJar'
-}
+tasks.publish.dependsOn('signJar')
