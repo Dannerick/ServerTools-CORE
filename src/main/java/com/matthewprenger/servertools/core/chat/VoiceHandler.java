@@ -24,18 +24,18 @@ import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.lib.Strings;
 import com.matthewprenger.servertools.core.util.FileUtils;
 import com.matthewprenger.servertools.core.util.Util;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.command.server.CommandBroadcast;
 import net.minecraft.command.server.CommandEmote;
 import net.minecraft.command.server.CommandMessage;
 import net.minecraft.command.server.CommandMessageRaw;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ServerChatEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,15 +44,15 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class VoiceHandler {
+import static net.minecraft.util.EnumChatFormatting.*;
 
-    private Set<String> voicedUsers;
-    private Set<String> silencedUsers;
+public class VoiceHandler {
 
     private final File voiceFile;
     private final File silenceFile;
-
     private final Gson gson;
+    private Set<String> voicedUsers;
+    private Set<String> silencedUsers;
 
     public VoiceHandler() {
 
@@ -70,6 +70,14 @@ public class VoiceHandler {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    private static void refreshPlayerDisplayName(String username) {
+
+        EntityPlayer player = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(username);
+
+        if (player != null)
+            player.refreshDisplayName();
+    }
+
     public boolean isUserVoiced(String username) {
 
         return voicedUsers.contains(username.toLowerCase());
@@ -79,6 +87,7 @@ public class VoiceHandler {
 
         voicedUsers.add(username.toLowerCase());
         saveVoiceList();
+        refreshPlayerDisplayName(username);
     }
 
     public boolean removeVoice(String username) {
@@ -86,6 +95,7 @@ public class VoiceHandler {
         if (voicedUsers.contains(username.toLowerCase())) {
             voicedUsers.remove(username.toLowerCase());
             saveVoiceList();
+            refreshPlayerDisplayName(username);
             return true;
         }
         return false;
@@ -177,18 +187,28 @@ public class VoiceHandler {
     }
 
     @SubscribeEvent
-    public void serverChat(ServerChatEvent event) {
+    public void nameFormat(PlayerEvent.NameFormat event) {
+
+        if (!CoreConfig.COLOR_OP_CHAT_MESSAGE)
+            return;
+
+        if (MinecraftServer.getServer().getConfigurationManager().isPlayerOpped(event.username)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(RED).append('[').append("OP").append("] ").append(RESET);
+            event.displayname = sb.toString() + event.displayname;
+        }
 
         if (isUserVoiced(event.username)) {
-            ChatComponentTranslation component = event.component;
-            event.component = new ChatComponentTranslation(EnumChatFormatting.AQUA + "[" + CoreConfig.VOICE_CHAT_PREFIX + "]" + EnumChatFormatting.RESET);
-            event.component.appendSibling(component);
+            StringBuilder sb = new StringBuilder();
+            sb.append(BLUE).append('[').append('+').append("] ").append(RESET);
+            event.displayname = sb.toString() + event.displayname;
         }
-        if (CoreConfig.COLOR_OP_CHAT_MESSAGE && MinecraftServer.getServer().getConfigurationManager().isPlayerOpped(event.username) && FMLCommonHandler.instance().getEffectiveSide().isServer()) {
-            ChatComponentTranslation component = event.component;
-            event.component = new ChatComponentTranslation(EnumChatFormatting.RED + "[" + CoreConfig.OP_CHAT_PREFIX + "]" + EnumChatFormatting.RESET);
-            event.component.appendSibling(component);
-        }
+
+    }
+
+    @SubscribeEvent
+    public void serverChat(ServerChatEvent event) {
+
         if (isUserSilenced(event.username)) {
             event.setCanceled(true);
             event.player.addChatComponentMessage(Util.getChatComponent(Strings.ERROR_SILENCED, EnumChatFormatting.RED));

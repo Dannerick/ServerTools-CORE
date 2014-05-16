@@ -16,7 +16,6 @@
 
 package com.matthewprenger.servertools.core.asm;
 
-import com.matthewprenger.servertools.core.STVersion;
 import cpw.mods.fml.relauncher.IFMLCallHook;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +25,7 @@ import java.util.Map;
 
 @IFMLLoadingPlugin.Name("STPlugin")
 @IFMLLoadingPlugin.TransformerExclusions({"com.matthewprenger.servertools.core.asm"})
-@IFMLLoadingPlugin.MCVersion(STVersion.MCVERSIONN)
+@IFMLLoadingPlugin.MCVersion("1.7.2")
 public class STPlugin implements IFMLLoadingPlugin, IFMLCallHook {
 
     public static final Logger log = LogManager.getLogger(STPlugin.class.getSimpleName());
@@ -38,7 +37,7 @@ public class STPlugin implements IFMLLoadingPlugin, IFMLCallHook {
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[] {STClassTransformer.class.getName()};
+        return new String[]{STClassTransformer.class.getName()};
     }
 
     @Override
