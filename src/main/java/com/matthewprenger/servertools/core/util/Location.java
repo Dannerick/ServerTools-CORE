@@ -16,29 +16,15 @@
 
 package com.matthewprenger.servertools.core.util;
 
+import lombok.Data;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ChunkCoordinates;
 
+@Data
 public class Location {
 
     public final int dimID;
     public final double x, y, z;
-
-    public Location(int dimID, double x, double y, double z) {
-
-        this.dimID = dimID;
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
-    public Location(int dimID, int x, int y, int z) {
-
-        this.dimID = dimID;
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
 
     public Location(int dimID, ChunkCoordinates chunkCoordinates) {
 
@@ -54,40 +40,5 @@ public class Location {
         this.x = entity.posX;
         this.y = entity.posY;
         this.z = entity.posZ;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Location location = (Location) o;
-
-        if (dimID != location.dimID) return false;
-        if (Double.compare(location.x, x) != 0) return false;
-        if (Double.compare(location.y, y) != 0) return false;
-        if (Double.compare(location.z, z) != 0) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = dimID;
-        temp = Double.doubleToLongBits(x);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(y);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(z);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
-
-    @Override
-    public String toString() {
-
-        return String.format("DIM: %s, X: %s, Y: %s, Z: %s", this.dimID, this.x, this.y, this.z);
     }
 }

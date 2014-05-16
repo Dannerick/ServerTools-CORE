@@ -48,6 +48,10 @@ minecraft {
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
 
+dependencies {
+    compile 'org.projectlombok:lombok:1.12.6'
+}
+
 jar.manifest {
     attributes 'FMLCorePlugin': 'com.matthewprenger.servertools.core.asm.STPlugin'
     attributes 'FMLCorePluginContainsFMLMod': 'true'
@@ -112,12 +116,13 @@ publishing {
     }
 }
 
-import net.minecraftforge.gradle.tasks.dev.ChangelogTask
-import net.minecraftforge.gradle.delayed.DelayedString
+
 import net.minecraftforge.gradle.delayed.DelayedFile
+import net.minecraftforge.gradle.delayed.DelayedString
+import net.minecraftforge.gradle.tasks.dev.ChangelogTask
 
 task changeLog(type: ChangelogTask) {
-    if(project.hasProperty('jenkins_user')) {
+    if (project.hasProperty('jenkins_user')) {
 
         def jobName = "${System.getenv().JOB_NAME}"
         def buildNumber = "${System.getenv().BUILD_NUMBER}"
