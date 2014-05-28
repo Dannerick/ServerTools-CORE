@@ -25,13 +25,13 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 public class STClassTransformer implements IClassTransformer {
 
     private static final FMLDeobfuscatingRemapper remapper = FMLDeobfuscatingRemapper.INSTANCE;
-    private static final Set<PatchNote> patches = new HashSet<>();
+    private static final Collection<PatchNote> patches = new HashSet<>();
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes) {
@@ -140,7 +140,7 @@ public class STClassTransformer implements IClassTransformer {
         public final String sourceClass;
         public final String replacementClass;
 
-        public final Set<MethodNote> methodsToPatch = new HashSet<>();
+        public final Collection<MethodNote> methodsToPatch = new HashSet<>();
 
         public PatchNote(String sourceClass, String replacementClass) {
             this.sourceClass = sourceClass;

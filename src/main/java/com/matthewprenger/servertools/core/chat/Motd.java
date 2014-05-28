@@ -20,6 +20,7 @@ import com.matthewprenger.servertools.core.CoreConfig;
 import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.lib.Reference;
 import com.matthewprenger.servertools.core.lib.Strings;
+import com.matthewprenger.servertools.core.util.FileUtils;
 import com.matthewprenger.servertools.core.util.Util;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -29,13 +30,12 @@ import net.minecraft.util.EnumChatFormatting;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Motd {
 
-    private static final String FILE_ENCODING = "UTF-8";
-
-    private String[] motd;
+    private Collection<String> motd = new ArrayList<>();
     private final File motdFile;
 
     public Motd(File motdFile) {
@@ -47,29 +47,23 @@ public class Motd {
 
     public void loadMotd() {
 
-        try {
-            if (!motdFile.exists()) {
-                Writer out = new OutputStreamWriter(new FileOutputStream(motdFile), FILE_ENCODING);
-
+        if (!motdFile.exists()) {
+            try (Writer out = new OutputStreamWriter(new FileOutputStream(motdFile), Reference.FILE_ENCODING)) {
                 for (String line : Strings.MOTD_DEFAULT) {
                     out.write(line);
-                    out.write(Reference.LINE_SEPARATOR);
+                    out.write(System.lineSeparator());
                 }
-                out.close();
+            } catch (IOException e) {
+                ServerTools.log.error("Failed to create default MOTD", e);
             }
 
-            BufferedReader reader = new BufferedReader(new FileReader(motdFile));
-            List<String> lines = new ArrayList<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+            Collections.addAll(motd, Strings.MOTD_DEFAULT);
+        } else {
+            try {
+                motd = FileUtils.readFileToString(motdFile);
+            } catch (IOException e) {
+                ServerTools.log.error("Failed to read MOTD from file", e);
             }
-            reader.close();
-            motd = lines.toArray(new String[lines.size()]);
-
-        } catch (Exception e) {
-            e.printStackTrace(System.err);
-            ServerTools.log.warn("Unable to read the MOTD from file");
         }
     }
 

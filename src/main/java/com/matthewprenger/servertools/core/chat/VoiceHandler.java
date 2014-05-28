@@ -193,15 +193,11 @@ public class VoiceHandler {
             return;
 
         if (MinecraftServer.getServer().getConfigurationManager().isPlayerOpped(event.username)) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(RED).append('[').append("OP").append("] ").append(RESET);
-            event.displayname = sb.toString() + event.displayname;
+            event.displayname = String.valueOf(RED) + '[' + "OP" + "] " + RESET + event.displayname;
         }
 
         if (isUserVoiced(event.username)) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(BLUE).append('[').append('+').append("] ").append(RESET);
-            event.displayname = sb.toString() + event.displayname;
+            event.displayname = String.valueOf(BLUE) + "[" + CoreConfig.VOICE_CHAT_PREFIX + "] " + RESET + event.displayname;
         }
 
     }

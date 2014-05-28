@@ -19,11 +19,10 @@ package com.matthewprenger.servertools.core.util;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.FileFileFilter;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 public class FileUtils {
     public static void writeStringToFile(String string, File file) throws IOException {
@@ -32,6 +31,29 @@ public class FileUtils {
         writer.write(string);
         writer.flush();
         writer.close();
+    }
+
+    /**
+     * Read a file into a collection of strings
+     * Each line is a new collection element
+     *
+     * @param file the file to read
+     * @return A collection of strings
+     * @throws IOException
+     */
+    public static Collection<String> readFileToString(File file) throws IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        Collection<String> lines = new ArrayList<>();
+
+        String line;
+        while ((line = br.readLine()) != null) {
+            lines.add(line);
+        }
+
+        br.close();
+
+        return lines;
     }
 
     /**

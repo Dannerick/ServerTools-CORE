@@ -22,8 +22,8 @@ import net.minecraft.command.CommandHandler;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 public class CommandManager {
 
@@ -41,7 +41,7 @@ public class CommandManager {
         if (commandConfig.hasChanged()) commandConfig.save();
     }
 
-    private static final Set<ServerToolsCommand> commandsToLoad = new HashSet<>();
+    private static final Collection<ServerToolsCommand> commandsToLoad = new HashSet<>();
 
     private static boolean commandsLoaded = false;
 
