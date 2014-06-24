@@ -5,8 +5,8 @@ def versionMinor = 0
 def versionRev = 1
 def versionBuild = 0
 
-def minecraftVersion = '1.7.2'
-def forgeVersion = '10.12.1.1082'
+def minecraftVersion = '1.7.10_pre4'
+def forgeVersion = '10.12.2.1137-prerelease'
 
 /* Constantes End */
 

@@ -16,6 +16,7 @@
 
 package com.matthewprenger.servertools.core.command.corecommands;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
@@ -29,8 +30,9 @@ public class CommandDisarm extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override

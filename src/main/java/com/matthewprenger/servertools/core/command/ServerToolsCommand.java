@@ -17,7 +17,6 @@
 package com.matthewprenger.servertools.core.command;
 
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
@@ -38,27 +37,26 @@ public abstract class ServerToolsCommand extends CommandBase {
         return name;
     }
 
-    @Override
-    public abstract int getRequiredPermissionLevel();
+    /**
+     * Get the required access level to use this command
+     *
+     * @return the Access Level
+     */
+    public abstract CommandLevel getCommandLevel();
 
     @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
 
         MinecraftServer server = MinecraftServer.getServer();
 
-        return !(sender instanceof EntityPlayerMP) || this.getRequiredPermissionLevel() <= 1 ||
-                server.getConfigurationManager().isPlayerOpped(sender.getCommandSenderName()) &&
-                        server.getOpPermissionLevel() >= this.getRequiredPermissionLevel();
+        if (!(sender instanceof EntityPlayerMP))
+            return true;
 
-    }
+        EntityPlayerMP player = (EntityPlayerMP) sender;
 
-    @SuppressWarnings("NullableProblems")
-    @Override
-    public int compareTo(Object o) {
-        if (o instanceof ICommand) {
-            return this.compareTo((ICommand) o);
-        } else {
-            return 0;
-        }
+        if (this.getRequiredPermissionLevel() <= 1)
+            return true;
+
+        return server.getConfigurationManager().func_152596_g(player.getGameProfile()) && server.getOpPermissionLevel() >= this.getRequiredPermissionLevel();
     }
 }

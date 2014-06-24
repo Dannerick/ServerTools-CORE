@@ -16,6 +16,7 @@
 
 package com.matthewprenger.servertools.core.command.corecommands;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.lib.Strings;
 import net.minecraft.command.ICommandSender;
@@ -39,8 +40,9 @@ public class CommandSpawnMob extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override
@@ -102,6 +104,6 @@ public class CommandSpawnMob extends ServerToolsCommand {
             throw new PlayerNotFoundException(Strings.COMMAND_ERROR_ENTITY_NOEXIST);
         }
 
-        notifyAdmins(sender, "Spawned " + amount + " " + type);
+        func_152373_a(sender, this, "Spawned " + amount + " " + type);
     }
 }

@@ -46,7 +46,7 @@ public class Util {
      */
     public static boolean matchesPlayer(String string) {
 
-        for(String user : MinecraftServer.getServer().getAllUsernames())
+        for (String user : MinecraftServer.getServer().getAllUsernames())
             if (user.equalsIgnoreCase(string))
                 return true;
 

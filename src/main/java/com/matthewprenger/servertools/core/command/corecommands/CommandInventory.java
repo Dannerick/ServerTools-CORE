@@ -16,6 +16,7 @@
 
 package com.matthewprenger.servertools.core.command.corecommands;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.lib.Strings;
 import net.minecraft.command.ICommandSender;
@@ -36,8 +37,9 @@ public class CommandInventory extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override

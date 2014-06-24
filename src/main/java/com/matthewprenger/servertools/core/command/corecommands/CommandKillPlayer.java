@@ -16,6 +16,7 @@
 
 package com.matthewprenger.servertools.core.command.corecommands;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -32,8 +33,9 @@ public class CommandKillPlayer extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class CommandKillPlayer extends ServerToolsCommand {
 
         if (astring.length > 0) {
             getPlayer(icommandsender, astring[0]).attackEntityFrom(DamageSource.outOfWorld, Integer.MAX_VALUE);
-            notifyAdmins(icommandsender, "Killing: " + astring[0]);
+            func_152373_a(icommandsender, this, "Killing: " + astring[0]);
         } else
             throw new WrongUsageException(getCommandUsage(icommandsender));
     }

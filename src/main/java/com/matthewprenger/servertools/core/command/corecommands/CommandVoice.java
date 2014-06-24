@@ -17,6 +17,7 @@
 package com.matthewprenger.servertools.core.command.corecommands;
 
 import com.matthewprenger.servertools.core.ServerTools;
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.lib.Strings;
 import com.matthewprenger.servertools.core.util.Util;
@@ -34,8 +35,9 @@ public class CommandVoice extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 3;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override
@@ -71,14 +73,14 @@ public class CommandVoice extends ServerToolsCommand {
             if ("add".equalsIgnoreCase(args[0])) {
                 if (args.length == 2) {
                     ServerTools.instance.voiceHandler.giveVoice(args[1]);
-                    notifyAdmins(sender, String.format(Strings.COMMAND_VOICE_ADD, args[1]));
+                    func_152373_a(sender, this, String.format(Strings.COMMAND_VOICE_ADD, args[1]));
                 } else
                     throw new WrongUsageException(getCommandUsage(sender));
 
             } else if ("remove".equalsIgnoreCase(args[0])) {
                 if (args.length == 2) {
                     if (ServerTools.instance.voiceHandler.removeVoice(args[1])) {
-                        notifyAdmins(sender, String.format(Strings.COMMAND_VOICE_REMOVE, args[1]));
+                        func_152373_a(sender, this, String.format(Strings.COMMAND_VOICE_REMOVE, args[1]));
                     } else {
                         sender.addChatMessage(Util.getChatComponent(Strings.COMMAND_VOICE_REMOVE_NOUSER, EnumChatFormatting.RED));
                     }
@@ -88,7 +90,7 @@ public class CommandVoice extends ServerToolsCommand {
             } else if ("reload".equalsIgnoreCase(args[0])) {
 
                 ServerTools.instance.voiceHandler.loadVoiceList();
-                notifyAdmins(sender, Strings.COMMAND_VOICE_RELOAD);
+                func_152373_a(sender, this, Strings.COMMAND_VOICE_RELOAD);
             } else
                 throw new WrongUsageException(getCommandUsage(sender));
         } else

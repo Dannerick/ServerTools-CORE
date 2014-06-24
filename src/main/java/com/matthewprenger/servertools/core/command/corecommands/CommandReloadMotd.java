@@ -17,6 +17,7 @@
 package com.matthewprenger.servertools.core.command.corecommands;
 
 import com.matthewprenger.servertools.core.ServerTools;
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.lib.Strings;
 import net.minecraft.command.ICommandSender;
@@ -28,8 +29,9 @@ public class CommandReloadMotd extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 3;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override
@@ -42,6 +44,6 @@ public class CommandReloadMotd extends ServerToolsCommand {
     public void processCommand(ICommandSender icommandsender, String[] astring) {
 
         ServerTools.instance.motd.loadMotd();
-        notifyAdmins(icommandsender, Strings.MOTD_RELOAD);
+        func_152373_a(icommandsender, this, Strings.MOTD_RELOAD);
     }
 }

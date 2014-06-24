@@ -17,6 +17,7 @@
 package com.matthewprenger.servertools.core.command.corecommands;
 
 import com.matthewprenger.servertools.core.ServerTools;
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.lib.Strings;
 import com.matthewprenger.servertools.core.util.Util;
@@ -34,8 +35,9 @@ public class CommandSilence extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override
@@ -74,7 +76,7 @@ public class CommandSilence extends ServerToolsCommand {
             if (args.length == 2) {
 
                 ServerTools.instance.voiceHandler.silence(args[1].toLowerCase());
-                notifyAdmins(sender, String.format(Strings.COMMAND_SILENCE_ADD, args[1]));
+                func_152373_a(sender, this, String.format(Strings.COMMAND_SILENCE_ADD, args[1]));
             } else
                 throw new WrongUsageException(getCommandUsage(sender));
 
@@ -85,7 +87,7 @@ public class CommandSilence extends ServerToolsCommand {
                 boolean result = ServerTools.instance.voiceHandler.removeSilence(args[1].toLowerCase());
 
                 if (result)
-                    notifyAdmins(sender, String.format(Strings.COMMAND_SILENCE_REMOVE, args[1]));
+                    func_152373_a(sender, this, String.format(Strings.COMMAND_SILENCE_REMOVE, args[1]));
                 else
                     sender.addChatMessage(Util.getChatComponent(Strings.COMMAND_SILENCE_REMOVE_NOUSER, EnumChatFormatting.RED));
             } else
@@ -94,7 +96,7 @@ public class CommandSilence extends ServerToolsCommand {
         } else if ("reload".equalsIgnoreCase(args[0])) {
 
             ServerTools.instance.voiceHandler.loadSilenceList();
-            notifyAdmins(sender, Strings.COMMAND_SILENCE_RELOAD);
+            func_152373_a(sender, this, Strings.COMMAND_SILENCE_RELOAD);
         }
     }
 }

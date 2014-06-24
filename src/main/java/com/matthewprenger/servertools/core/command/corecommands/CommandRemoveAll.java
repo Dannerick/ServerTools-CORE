@@ -19,6 +19,7 @@ package com.matthewprenger.servertools.core.command.corecommands;
 import com.google.common.collect.Lists;
 import com.matthewprenger.servertools.core.CoreConfig;
 import com.matthewprenger.servertools.core.ServerTools;
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.lib.Strings;
 import com.matthewprenger.servertools.core.task.RemoveAllTickTask;
@@ -41,8 +42,9 @@ public class CommandRemoveAll extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.OP;
     }
 
     @Override

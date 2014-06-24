@@ -16,6 +16,7 @@
 
 package com.matthewprenger.servertools.core.command.corecommands;
 
+import com.matthewprenger.servertools.core.command.CommandLevel;
 import com.matthewprenger.servertools.core.command.ServerToolsCommand;
 import com.matthewprenger.servertools.core.util.Util;
 import net.minecraft.command.ICommandSender;
@@ -35,8 +36,9 @@ public class CommandWhereIs extends ServerToolsCommand {
     }
 
     @Override
-    public int getRequiredPermissionLevel() {
-        return 0;
+    public CommandLevel getCommandLevel() {
+
+        return CommandLevel.ANYONE;
     }
 
     @Override

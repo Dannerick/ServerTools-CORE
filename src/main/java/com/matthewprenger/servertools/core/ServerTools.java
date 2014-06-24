@@ -38,7 +38,10 @@ public class ServerTools {
 
     public static final File minecraftDir = (File) FMLInjectionData.data()[6];
     public static final File serverToolsDir = new File(minecraftDir, "servertools");
-    static {serverToolsDir.mkdirs();}
+
+    static {
+        serverToolsDir.mkdirs();
+    }
 
     public static final Logger log = LogManager.getLogger(Reference.MOD_ID);
 

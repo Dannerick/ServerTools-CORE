@@ -72,7 +72,7 @@ public class VoiceHandler {
 
     private static void refreshPlayerDisplayName(String username) {
 
-        EntityPlayer player = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(username);
+        EntityPlayer player = MinecraftServer.getServer().getConfigurationManager().func_152612_a(username);
 
         if (player != null)
             player.refreshDisplayName();
@@ -192,7 +192,7 @@ public class VoiceHandler {
         if (!CoreConfig.COLOR_OP_CHAT_MESSAGE)
             return;
 
-        if (MinecraftServer.getServer().getConfigurationManager().isPlayerOpped(event.username)) {
+        if (MinecraftServer.getServer().getConfigurationManager().func_152596_g(event.entityPlayer.getGameProfile()) && !MinecraftServer.getServer().isSinglePlayer()) {
             event.displayname = String.valueOf(RED) + '[' + "OP" + "] " + RESET + event.displayname;
         }
 
