@@ -54,9 +54,12 @@ public abstract class ServerToolsCommand extends CommandBase {
 
         EntityPlayerMP player = (EntityPlayerMP) sender;
 
-        if (this.getRequiredPermissionLevel() <= 1)
+        if (getCommandLevel().equals(CommandLevel.ANYONE))
             return true;
 
-        return server.getConfigurationManager().func_152596_g(player.getGameProfile()) && server.getOpPermissionLevel() >= this.getRequiredPermissionLevel();
+        if (getCommandLevel().equals(CommandLevel.OP) && server.getConfigurationManager().func_152596_g(player.getGameProfile()))
+            return true;
+
+        return false;
     }
 }
