@@ -25,7 +25,7 @@ import java.util.Map;
 
 @IFMLLoadingPlugin.Name("STPlugin")
 @IFMLLoadingPlugin.TransformerExclusions({"com.matthewprenger.servertools.core.asm"})
-@IFMLLoadingPlugin.MCVersion("1.7.2")
+@IFMLLoadingPlugin.MCVersion("1.7.10")
 public class STPlugin implements IFMLLoadingPlugin, IFMLCallHook {
 
     public static final Logger log = LogManager.getLogger(STPlugin.class.getSimpleName());
