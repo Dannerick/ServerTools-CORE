@@ -19,7 +19,7 @@ package com.matthewprenger.servertools.core.util;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.gson.Gson;
-import com.matthewprenger.servertools.core.ServerTools;
+import org.apache.logging.log4j.Level;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -69,7 +69,7 @@ public final class AccountUtils {
                 }
             });
         } catch (Exception e) {
-            ServerTools.log.warn("Failed to fetch username from UUID", e);
+            LogHelper.log(Level.WARN, "Failed to fetch username from UUID", e);
         }
 
         return username;
@@ -116,7 +116,7 @@ public final class AccountUtils {
             });
         } catch (Exception e) {
 
-            ServerTools.log.warn("Failed to fetch UUID  from username", e);
+            LogHelper.log(Level.WARN, "Failed to fetch UUID  from username", e);
         }
 
         uuid = uuid.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5"); // Add the dashes back into the UUID

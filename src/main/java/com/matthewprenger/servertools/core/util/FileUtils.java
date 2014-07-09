@@ -27,10 +27,11 @@ import java.util.Collection;
 public class FileUtils {
     public static void writeStringToFile(String string, File file) throws IOException {
 
-        FileWriter writer = new FileWriter(file);
-        writer.write(string);
-        writer.flush();
-        writer.close();
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(string);
+            writer.flush();
+            writer.close();
+        }
     }
 
     /**
@@ -43,17 +44,15 @@ public class FileUtils {
      */
     public static Collection<String> readFileToString(File file) throws IOException {
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        Collection<String> lines = new ArrayList<>();
-
-        String line;
-        while ((line = br.readLine()) != null) {
-            lines.add(line);
+        Collection<String> lines;
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            lines = new ArrayList<>();
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+            return lines;
         }
-
-        br.close();
-
-        return lines;
     }
 
     /**

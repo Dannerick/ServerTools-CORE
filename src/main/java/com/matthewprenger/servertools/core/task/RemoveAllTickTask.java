@@ -16,7 +16,7 @@
 
 package com.matthewprenger.servertools.core.task;
 
-import com.matthewprenger.servertools.core.ServerTools;
+import com.matthewprenger.servertools.core.util.LogHelper;
 import com.matthewprenger.servertools.core.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,7 +45,7 @@ public class RemoveAllTickTask implements ITickTask {
         world = player.worldObj;
 
         if (world == null) {
-            ServerTools.log.warn(String.format("Player: %s tried to start a removeall task, but their worldObj was null", player.getDisplayName()));
+            LogHelper.warn(String.format("Player: %s tried to start a removeall task, but their worldObj was null", player.getDisplayName()));
             isComplete = true;
             return;
         }
@@ -106,7 +106,7 @@ public class RemoveAllTickTask implements ITickTask {
     /**
      * Used to reference an actaul block in world
      */
-    private class TempBlock {
+    private static class TempBlock {
         final int x;
         final int y;
         final int z;

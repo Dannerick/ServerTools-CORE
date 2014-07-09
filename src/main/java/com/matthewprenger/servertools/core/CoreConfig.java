@@ -16,7 +16,9 @@
 
 package com.matthewprenger.servertools.core;
 
+import com.matthewprenger.servertools.core.util.LogHelper;
 import net.minecraftforge.common.config.Configuration;
+import org.apache.logging.log4j.Level;
 
 import java.io.File;
 
@@ -52,8 +54,7 @@ public class CoreConfig {
             LOG_BLOCK_BREAKS = configuration.get(category, "Log Block Breaks", false, "This will log all blocks broken by players and fake players").getBoolean(false);
 
         } catch (Exception e) {
-            e.printStackTrace(System.err);
-            ServerTools.log.fatal("Failed to load core configuration");
+            LogHelper.log(Level.FATAL, "Failed to load core configuration", e);
         } finally {
             if (configuration.hasChanged()) {
                 configuration.save();

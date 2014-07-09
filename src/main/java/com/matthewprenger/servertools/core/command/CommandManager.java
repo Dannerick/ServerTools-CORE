@@ -18,6 +18,7 @@ package com.matthewprenger.servertools.core.command;
 
 import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.command.corecommands.*;
+import com.matthewprenger.servertools.core.util.LogHelper;
 import net.minecraft.command.CommandHandler;
 import net.minecraftforge.common.config.Configuration;
 
@@ -72,8 +73,8 @@ public class CommandManager {
     public static void registerCommands(CommandHandler commandHandler) {
 
         for (ServerToolsCommand command : commandsToLoad) {
-            ServerTools.log.debug(String.format("Command: %s , has name: %s", command.getClass(), command.name));
-            ServerTools.log.info("Registering Command: " + command.name);
+            LogHelper.trace(String.format("Command: %s , has name: %s", command.getClass(), command.name));
+            LogHelper.info("Registering Command: " + command.name);
             commandHandler.registerCommand(command);
         }
 
@@ -104,6 +105,7 @@ public class CommandManager {
         registerSTCommand(new CommandRemoveAll("removeall"));
         registerSTCommand(new CommandMemory("memory"));
         registerSTCommand(new CommandPing("ping"));
+        registerSTCommand(new CommandServerTools("servertools"));
     }
 
     public static boolean areCommandsLoaded() {

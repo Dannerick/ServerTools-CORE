@@ -20,6 +20,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 
 public abstract class ServerToolsCommand extends CommandBase {
 
@@ -61,5 +63,17 @@ public abstract class ServerToolsCommand extends CommandBase {
             return true;
 
         return false;
+    }
+
+    public static void addChatMessage(ICommandSender sender, Object message) {
+
+        sender.addChatMessage(new ChatComponentText(String.valueOf(message)));
+    }
+
+    public static void addChatMessage(ICommandSender sender, Object message, EnumChatFormatting formatting) {
+
+        ChatComponentText componentText = new ChatComponentText(String.valueOf(message));
+        componentText.getChatStyle().setColor(formatting);
+        sender.addChatMessage(componentText);
     }
 }

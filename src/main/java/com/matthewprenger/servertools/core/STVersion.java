@@ -17,6 +17,7 @@
 package com.matthewprenger.servertools.core;
 
 import com.google.common.base.Strings;
+import com.matthewprenger.servertools.core.util.LogHelper;
 
 public final class STVersion {
 
@@ -64,7 +65,7 @@ public final class STVersion {
     public static void checkVersion(String minCoreVersion) {
 
         if (minCoreVersion.contains("@") || Strings.isNullOrEmpty(STVersion.class.getPackage().getSpecificationVersion())) {
-            ServerTools.log.warn("Development environment detected");
+            LogHelper.warn("Development environment detected");
             return;
         }
 

@@ -28,10 +28,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.server.MinecraftServer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+
+import static com.matthewprenger.servertools.core.util.LogHelper.*;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = STVersion.VERSION, dependencies = Reference.DEPENDENCIES, acceptableRemoteVersions = "*", certificateFingerprint = Reference.FINGERPRINT)
 public class ServerTools {
@@ -42,8 +42,6 @@ public class ServerTools {
     static {
         serverToolsDir.mkdirs();
     }
-
-    public static final Logger log = LogManager.getLogger(Reference.MOD_ID);
 
     @Mod.Instance(Reference.MOD_ID)
     public static ServerTools instance;
@@ -59,16 +57,16 @@ public class ServerTools {
     @Mod.EventHandler
     public void invalidCert(FMLFingerprintViolationEvent event) {
 
-        log.warn("Invalid ServerTools fingerprint detected: {}", event.fingerprints.toString());
-        log.warn("Expected: {}", event.expectedFingerprint);
-        log.warn("Unpredictable results my occur");
+        warn("Invalid ServerTools fingerprint detected: " + event.fingerprints.toString());
+        warn("Expected: " + event.expectedFingerprint);
+        warn("Unpredictable results my occur");
     }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
-        log.info(String.format("Initializing ServerTools %s for Minecraft %s", STVersion.VERSION, STVersion.MCVERSIONN));
-        log.debug(String.format("Root ServerTools Directory: %s", serverToolsDir.getAbsolutePath()));
+        info(String.format("Initializing ServerTools %s for Minecraft %s", STVersion.VERSION, STVersion.MCVERSIONN));
+        trace(String.format("Root ServerTools Directory: %s", serverToolsDir.getAbsolutePath()));
 
         /* Initialize the Core Configuration */
         CoreConfig.init(new File(serverToolsDir, "core.cfg"));
@@ -82,7 +80,7 @@ public class ServerTools {
 
         /* Register the Flat Bedrock Generator */
         if (CoreConfig.GENERATE_FLAT_BEDROCK) {
-            log.debug("Registering Flat Bedrock Generator");
+            info("Registering Flat Bedrock Generator");
             GameRegistry.registerWorldGenerator(new FlatBedrockGenerator(), 1);
         }
     }

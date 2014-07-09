@@ -16,9 +16,11 @@
 
 package com.matthewprenger.servertools.core;
 
+import com.matthewprenger.servertools.core.util.LogHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
+import org.apache.logging.log4j.Level;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,40 +52,28 @@ public class BlockLogger {
     @SubscribeEvent
     public void onBlockBreak(BlockEvent.BreakEvent event) {
 
-        try {
-            File logFile = new File(logDirectory, DATE_FORMAT.format(Calendar.getInstance().getTime()) + ".csv");
+        File logFile = new File(logDirectory, DATE_FORMAT.format(Calendar.getInstance().getTime()) + ".csv");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
 
             if (!logFile.exists())
                 writeHeader(logFile);
 
-            FileWriter fw = new FileWriter(logFile, true);
-            BufferedWriter writer = new BufferedWriter(fw);
-
             writer.write(String.format("%s,%s,%s,%s,%s,%s,%s", TIME_FORMAT.format(Calendar.getInstance().getTime()), event.getPlayer().getCommandSenderName(),
                     event.world.provider.dimensionId, event.x, event.y, event.z, event.block.getUnlocalizedName()));
             writer.newLine();
-
-            writer.close();
-            fw.close();
         } catch (IOException e) {
-            e.printStackTrace();
-            ServerTools.log.warn("Failed to write block break event to file", e);
+            LogHelper.log(Level.WARN, "Failed to write block break event to file", e);
         }
     }
 
     private static void writeHeader(File file) {
 
-        try {
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
-
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(FILE_HEADER);
             writer.newLine();
-
-            writer.close();
-            fw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LogHelper.log(Level.ERROR, "Failed to write BlockLogger header", e);
         }
     }
 }

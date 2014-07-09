@@ -23,6 +23,7 @@ import com.matthewprenger.servertools.core.CoreConfig;
 import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.lib.Strings;
 import com.matthewprenger.servertools.core.util.FileUtils;
+import com.matthewprenger.servertools.core.util.LogHelper;
 import com.matthewprenger.servertools.core.util.Util;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.command.server.CommandBroadcast;
@@ -36,6 +37,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import org.apache.logging.log4j.Level;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -139,8 +141,7 @@ public class VoiceHandler {
         try {
             FileUtils.writeStringToFile(gsonRepresentation, voiceFile);
         } catch (IOException e) {
-            e.printStackTrace(System.err);
-            ServerTools.log.warn(Strings.VOICE_SAVE_ERROR);
+            LogHelper.log(Level.WARN, Strings.VOICE_SAVE_ERROR, e);
         }
     }
 
@@ -150,12 +151,10 @@ public class VoiceHandler {
         if (!voiceFile.exists())
             return;
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(voiceFile));
+        try (BufferedReader reader = new BufferedReader(new FileReader(voiceFile))) {
             voicedUsers = gson.fromJson(reader, HashSet.class);
         } catch (Exception e) {
-            e.printStackTrace(System.err);
-            ServerTools.log.warn(Strings.VOICE_LOAD_ERROR);
+            LogHelper.log(Level.WARN, Strings.VOICE_LOAD_ERROR, e);
         }
     }
 
@@ -166,8 +165,7 @@ public class VoiceHandler {
         try {
             FileUtils.writeStringToFile(gsonRepresentation, silenceFile);
         } catch (IOException e) {
-            e.printStackTrace(System.err);
-            ServerTools.log.warn(Strings.SILENCE_SAVE_ERROR);
+            LogHelper.log(Level.WARN, Strings.SILENCE_SAVE_ERROR, e);
         }
     }
 
@@ -177,12 +175,10 @@ public class VoiceHandler {
         if (!silenceFile.exists())
             return;
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(silenceFile));
+        try (BufferedReader reader = new BufferedReader(new FileReader(silenceFile))) {
             silencedUsers = gson.fromJson(reader, HashSet.class);
         } catch (Exception e) {
-            e.printStackTrace(System.err);
-            ServerTools.log.warn(Strings.SILENCE_LOAD_ERROR);
+            LogHelper.log(Level.WARN, Strings.SILENCE_LOAD_ERROR, e);
         }
     }
 

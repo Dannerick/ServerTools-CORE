@@ -17,16 +17,17 @@
 package com.matthewprenger.servertools.core.chat;
 
 import com.matthewprenger.servertools.core.CoreConfig;
-import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.lib.Reference;
 import com.matthewprenger.servertools.core.lib.Strings;
 import com.matthewprenger.servertools.core.util.FileUtils;
+import com.matthewprenger.servertools.core.util.LogHelper;
 import com.matthewprenger.servertools.core.util.Util;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class Motd {
                     out.write(System.lineSeparator());
                 }
             } catch (IOException e) {
-                ServerTools.log.error("Failed to create default MOTD", e);
+                LogHelper.log(Level.WARN, "Failed to create default MOTD", e);
             }
 
             Collections.addAll(motd, Strings.MOTD_DEFAULT);
@@ -62,7 +63,7 @@ public class Motd {
             try {
                 motd = FileUtils.readFileToString(motdFile);
             } catch (IOException e) {
-                ServerTools.log.error("Failed to read MOTD from file", e);
+                LogHelper.log(Level.ERROR, "Failed to read MOTD from file", e);
             }
         }
     }
