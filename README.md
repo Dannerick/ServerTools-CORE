@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.matthewprenger.servertools:ServerTools-CORE:1.7.10-2.1.0.41'
+    compile 'com.matthewprenger.servertools:ServerTools-CORE:1.7.10-2.1.0.41:deobf'
 }
 ```
 
