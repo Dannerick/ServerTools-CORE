@@ -185,11 +185,11 @@ public class VoiceHandler {
     @SubscribeEvent
     public void nameFormat(PlayerEvent.NameFormat event) {
 
-        if (!CoreConfig.COLOR_OP_CHAT_MESSAGE)
-            return;
+        if (CoreConfig.COLOR_OP_CHAT_MESSAGE) {
 
-        if (MinecraftServer.getServer().getConfigurationManager().func_152596_g(event.entityPlayer.getGameProfile()) && !MinecraftServer.getServer().isSinglePlayer()) {
-            event.displayname = String.valueOf(RED) + '[' + "OP" + "] " + RESET + event.displayname;
+            if (MinecraftServer.getServer().getConfigurationManager().func_152596_g(event.entityPlayer.getGameProfile()) && !MinecraftServer.getServer().isSinglePlayer()) {
+                event.displayname = String.valueOf(RED) + '[' + "OP" + "] " + RESET + event.displayname;
+            }
         }
 
         if (isUserVoiced(event.username)) {
