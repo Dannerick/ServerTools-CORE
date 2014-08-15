@@ -17,6 +17,7 @@
 package com.matthewprenger.servertools.core;
 
 import com.matthewprenger.servertools.core.chat.Motd;
+import com.matthewprenger.servertools.core.chat.NickHandler;
 import com.matthewprenger.servertools.core.chat.VoiceHandler;
 import com.matthewprenger.servertools.core.command.CommandManager;
 import com.matthewprenger.servertools.core.lib.Reference;
@@ -70,6 +71,9 @@ public class ServerTools {
 
         /* Initialize the Core Configuration */
         CoreConfig.init(new File(serverToolsDir, "core.cfg"));
+
+        /* Initialize the save file for nicknames */
+        NickHandler.instance.init(new File(serverToolsDir, "nicks.json"));
 
         /* Create a new TickHandler Instance */
         tickHandler = new TickHandler();

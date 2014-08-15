@@ -106,6 +106,8 @@ public class CommandManager {
         registerSTCommand(new CommandMemory("memory"));
         registerSTCommand(new CommandPing("ping"));
         registerSTCommand(new CommandServerTools("servertools"));
+        registerSTCommand(new CommandNick("nick"));
+        registerSTCommand(new CommandSetNick("setnick"));
     }
 
     public static boolean areCommandsLoaded() {
