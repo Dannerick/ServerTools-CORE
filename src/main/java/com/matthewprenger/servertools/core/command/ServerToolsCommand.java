@@ -65,6 +65,19 @@ public abstract class ServerToolsCommand extends CommandBase {
         return false;
     }
 
+    @Override
+    public int getRequiredPermissionLevel() {
+
+        switch (getCommandLevel()) {
+            case OP:
+                return 4;
+            case ANYONE:
+                return 0;
+            default:
+                return 4;
+        }
+    }
+
     public static void addChatMessage(ICommandSender sender, Object message) {
 
         sender.addChatMessage(new ChatComponentText(String.valueOf(message)));
