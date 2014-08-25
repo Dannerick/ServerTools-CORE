@@ -89,7 +89,7 @@ public class FileUtils {
 
         File[] files = directory.listFiles((FileFilter) FileFileFilter.FILE);
 
-        Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE);
+        Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_COMPARATOR);
 
         return files.length > 0 ? files[0] : null;
     }
