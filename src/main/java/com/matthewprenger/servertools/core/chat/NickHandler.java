@@ -20,7 +20,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.matthewprenger.servertools.core.util.FileUtils;
+import com.matthewprenger.servertools.core.util.GsonUtils;
 import com.matthewprenger.servertools.core.util.LogHelper;
 import com.matthewprenger.servertools.core.util.Util;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -57,26 +57,14 @@ public class NickHandler {
         this.saveFile = saveFile;
 
         if (saveFile.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(saveFile))) {
-                Type type = new TypeToken<Map<UUID, String>>() {
-                }.getType();
-                nickMap = gson.fromJson(reader, type);
-            } catch (JsonSyntaxException e) {
-                LogHelper.log(Level.WARN, "Failed to parse nickname savefile as valid JSON", e);
-            } catch (IOException e) {
-                LogHelper.log(Level.WARN, "Failed to load nickname savefile", e);
-            }
+            nickMap = GsonUtils.fromJson(saveFile, LogHelper.getLog());
         } else {
             save();
         }
     }
 
     public void save() {
-        try {
-            FileUtils.writeStringToFile(gson.toJson(nickMap), saveFile);
-        } catch (IOException e) {
-            LogHelper.log(Level.WARN, "Failed to save nickname map", e);
-        }
+        GsonUtils.writeToFile(nickMap, saveFile, LogHelper.getLog(), true);
     }
 
     @SubscribeEvent

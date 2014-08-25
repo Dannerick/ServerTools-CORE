@@ -61,4 +61,8 @@ public final class LogHelper {
     public static void trace(Object message) {
         log(Level.TRACE, message);
     }
+
+    public static Logger getLog() {
+        return log;
+    }
 }

@@ -102,7 +102,7 @@ public final class AccountUtils {
                     connection.setDoOutput(true);
 
                     try (DataOutputStream writer = new DataOutputStream(connection.getOutputStream())) {
-                        writer.write(gson.toJson(username).getBytes());
+                        writer.write(GsonUtils.toJson(username, false).getBytes());
                     }
 
                     Account[] account;
