@@ -18,6 +18,7 @@ package com.matthewprenger.servertools.core.lib;
 
 import com.google.common.collect.ImmutableList;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 public class Reference {
@@ -31,5 +32,7 @@ public class Reference {
     public static final List<String> AUTHORS = ImmutableList.of("matthewprenger");
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
     public static final String FILE_ENCODING = "UTF-8";
+    public static final Charset CHARSET = Charset.forName(FILE_ENCODING);
 }

@@ -53,11 +53,31 @@ public class Util {
         return false;
     }
 
+    /**
+     * @deprecated Use {@link ServerUtils#teleportPlayer(EntityPlayerMP, Location)}
+     */
+    @Deprecated
     public static void teleportPlayer(EntityPlayerMP entityPlayer, Location location) {
 
-        if (entityPlayer.worldObj.provider.dimensionId != location.dimID)
-            entityPlayer.travelToDimension(location.dimID);
+        ServerUtils.teleportPlayer(entityPlayer, location);
+    }
 
-        entityPlayer.setPositionAndUpdate(location.x, location.y, location.z);
+    /**
+     * Sanity check to make sure an object is not <code>null</code>
+     *
+     * @param obj the object
+     * @throws java.lang.NullPointerException if the object is <code>null</code>
+     */
+    public static void checkNotNull(Object... obj) {
+
+        if (obj == null) {
+            throw new NullPointerException();
+        }
+
+        for (Object object : obj) {
+            if (object == null) {
+                throw new NullPointerException();
+            }
+        }
     }
 }

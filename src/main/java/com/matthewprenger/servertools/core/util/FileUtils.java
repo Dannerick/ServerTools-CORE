@@ -16,8 +16,11 @@
 
 package com.matthewprenger.servertools.core.util;
 
+import com.google.common.io.Files;
+import com.matthewprenger.servertools.core.lib.Reference;
 import org.apache.commons.io.comparator.LastModifiedFileComparator;
 import org.apache.commons.io.filefilter.FileFileFilter;
+import org.apache.logging.log4j.Level;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -25,13 +28,30 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class FileUtils {
-    public static void writeStringToFile(String string, File file) throws IOException {
 
-        try (FileWriter writer = new FileWriter(file)) {
-            writer.write(string);
-            writer.flush();
-            writer.close();
-        }
+    /**
+     * Write a string to file
+     * <p>
+     * <b>IO is done on a separate thread!</b>
+     * </p>
+     *
+     * @param string the string to write
+     * @param file   the file to write to
+     * @throws IOException
+     */
+    public static void writeStringToFile(final String string, final File file) throws IOException {
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Files.write(string, file, Reference.CHARSET);
+                } catch (IOException e) {
+                    LogHelper.log(Level.WARN, "Failed to save file to disk", e);
+                }
+            }
+
+        }.start();
     }
 
     /**
