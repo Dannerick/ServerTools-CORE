@@ -16,10 +16,8 @@
 
 package com.matthewprenger.servertools.core.chat;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import com.matthewprenger.servertools.core.util.GsonUtils;
 import com.matthewprenger.servertools.core.util.LogHelper;
 import com.matthewprenger.servertools.core.util.Util;
@@ -30,13 +28,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import org.apache.logging.log4j.Level;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -60,6 +54,10 @@ public class NickHandler {
             nickMap = GsonUtils.fromJson(saveFile, LogHelper.getLog());
         } else {
             save();
+        }
+
+        if (nickMap == null) {
+            nickMap = new HashMap<>();
         }
     }
 
