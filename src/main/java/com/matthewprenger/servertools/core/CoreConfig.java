@@ -33,6 +33,8 @@ public class CoreConfig {
     public static String OP_CHAT_PREFIX;
     public static String VOICE_CHAT_PREFIX;
 
+    public static boolean ENABLE_HELP_OVERRIDE;
+
     public static void init(File configFile) {
 
         Configuration configuration = new Configuration(configFile);
@@ -49,6 +51,7 @@ public class CoreConfig {
             DEFAULT_REMOVE_ALL_RANGE = configuration.get(category, "Default RemoveAll Range", 20, "The default range for the /removeall command").getInt();
             OP_CHAT_PREFIX = configuration.get(category, "OP Chat Prefix", "OP", "The prefix in chat for server operators").getString();
             VOICE_CHAT_PREFIX = configuration.get(category, "Voice Chat Prefix", "+", "The prefix in chat for voiced users").getString();
+            ENABLE_HELP_OVERRIDE = configuration.get(category, "Enable Help Override", true, "Fixes /help when mods screw it up").getBoolean(true);
 
             category = "world";
             LOG_BLOCK_BREAKS = configuration.get(category, "Log Block Breaks", false, "This will log all blocks broken by players and fake players").getBoolean(false);

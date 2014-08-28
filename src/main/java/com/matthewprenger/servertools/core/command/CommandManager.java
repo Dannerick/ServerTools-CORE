@@ -16,15 +16,19 @@
 
 package com.matthewprenger.servertools.core.command;
 
+import com.matthewprenger.servertools.core.CoreConfig;
 import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.command.corecommands.*;
 import com.matthewprenger.servertools.core.util.LogHelper;
 import net.minecraft.command.CommandHandler;
+import net.minecraft.command.CommandHelp;
+import net.minecraft.command.ICommand;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
 
 public class CommandManager {
 
@@ -76,6 +80,23 @@ public class CommandManager {
             LogHelper.trace(String.format("Command: %s , has name: %s", command.getClass(), command.name));
             LogHelper.info("Registering Command: " + command.name);
             commandHandler.registerCommand(command);
+        }
+
+        if (CoreConfig.ENABLE_HELP_OVERRIDE) {
+            commandHandler.registerCommand(new CommandHelp() {
+                @SuppressWarnings("unchecked")
+                @Override
+                protected List getSortedPossibleCommands(ICommandSender sender) {
+                    List<ICommand> list = MinecraftServer.getServer().getCommandManager().getPossibleCommands(sender);
+                    Collections.sort(list, new Comparator<ICommand>() {
+                        @Override
+                        public int compare(ICommand o1, ICommand o2) {
+                            return o1.getCommandName().compareTo(o2.getCommandName());
+                        }
+                    });
+                    return list;
+                }
+            });
         }
 
         commandsLoaded = true;
