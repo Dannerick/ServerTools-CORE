@@ -133,7 +133,7 @@ publishing {
 }
 
 curse {
-    dependsOn 'changeLog', 'reobf'
+    dependsOn 'reobf'
     onlyIf { return project.hasProperty('curseforge_key') }
 
     if (project.hasProperty('curseforge_key')) apiKey = project.curseforge_key
