@@ -22,7 +22,7 @@ def versionRev = 0
 def versionBuild = 0
 
 def minecraftVersion = '1.7.10'
-def forgeVersion = '10.13.0.1190'
+def forgeVersion = '10.13.1.1217'
 
 /* Constants End */
 
@@ -79,6 +79,7 @@ targetCompatibility = '1.7'
 jar.manifest {
     attributes 'Specification-Version': actualVersion
     attributes 'Specification-Title': project.name
+    attributes 'FMLAT': 'servertools_at.cfg'
 }
 
 processResources {
@@ -144,6 +145,7 @@ import net.minecraftforge.gradle.delayed.DelayedString
 import net.minecraftforge.gradle.tasks.dev.ChangelogTask
 
 task changeLog(type: ChangelogTask) {
+    onlyIf { return project.hasProperty('jenkins_user') }
     if (project.hasProperty('jenkins_user')) {
 
         def jobName = "${System.getenv().JOB_NAME}"

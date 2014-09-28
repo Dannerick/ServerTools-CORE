@@ -55,10 +55,11 @@ public class Util {
 
     /**
      * @deprecated Use {@link ServerUtils#teleportPlayer(EntityPlayerMP, Location)}
+     * @param entityPlayer the player
+     * @param location the Location
      */
     @Deprecated
     public static void teleportPlayer(EntityPlayerMP entityPlayer, Location location) {
-
         ServerUtils.teleportPlayer(entityPlayer, location);
     }
 

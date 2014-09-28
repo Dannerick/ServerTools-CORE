@@ -16,6 +16,7 @@
 
 package com.matthewprenger.servertools.core.util;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 
@@ -43,7 +44,9 @@ public final class ServerUtils {
     /**
      * Get the player for a given {@link java.util.UUID UUID}
      *
-     * @param uuid the UUID
+     * @param uuid
+     *         the UUID
+     *
      * @return the EntityPlayer, or <code>null</code> if the player does not exist
      */
     public static EntityPlayerMP getPlayerForUUID(UUID uuid) {
@@ -62,7 +65,9 @@ public final class ServerUtils {
     /**
      * Get the player for a given username
      *
-     * @param username the username
+     * @param username
+     *         the username
+     *
      * @return the EntityPlayer, or <code>null</code> if the player does not exist
      */
     public static EntityPlayerMP getPlayerForUsername(String username) {
@@ -81,8 +86,10 @@ public final class ServerUtils {
     /**
      * Teleport a player to a given location
      *
-     * @param entityPlayer the player
-     * @param location     the location
+     * @param entityPlayer
+     *         the player
+     * @param location
+     *         the location
      */
     public static void teleportPlayer(EntityPlayerMP entityPlayer, Location location) {
 
@@ -92,5 +99,17 @@ public final class ServerUtils {
             entityPlayer.travelToDimension(location.dimID);
 
         entityPlayer.setPositionAndUpdate(location.x, location.y, location.z);
+    }
+
+    /**
+     * Checks to see if a player is OP
+     *
+     * @param gameProfile
+     *         The player's GameProfile
+     *
+     * @return if the player is OP
+     */
+    public static boolean isOP(GameProfile gameProfile) {
+        return MinecraftServer.getServer().getConfigurationManager().func_152603_m().func_152692_d(gameProfile);
     }
 }

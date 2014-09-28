@@ -24,12 +24,10 @@ import com.matthewprenger.servertools.core.ServerTools;
 import com.matthewprenger.servertools.core.lib.Strings;
 import com.matthewprenger.servertools.core.util.FileUtils;
 import com.matthewprenger.servertools.core.util.LogHelper;
+import com.matthewprenger.servertools.core.util.ServerUtils;
 import com.matthewprenger.servertools.core.util.Util;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.command.server.CommandBroadcast;
-import net.minecraft.command.server.CommandEmote;
-import net.minecraft.command.server.CommandMessage;
-import net.minecraft.command.server.CommandMessageRaw;
+import net.minecraft.command.server.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumChatFormatting;
@@ -187,7 +185,7 @@ public class VoiceHandler {
 
         if (CoreConfig.COLOR_OP_CHAT_MESSAGE) {
 
-            if (MinecraftServer.getServer().getConfigurationManager().func_152596_g(event.entityPlayer.getGameProfile()) && !MinecraftServer.getServer().isSinglePlayer()) {
+            if (!MinecraftServer.getServer().isSinglePlayer() && ServerUtils.isOP(event.entityPlayer.getGameProfile())) {
                 event.displayname = String.valueOf(RED) + '[' + "OP" + "] " + RESET + event.displayname;
             }
         }

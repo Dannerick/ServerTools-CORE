@@ -37,7 +37,7 @@ public class FileUtils {
      *
      * @param string the string to write
      * @param file   the file to write to
-     * @throws IOException
+     * @throws IOException IOException
      */
     public static void writeStringToFile(final String string, final File file) throws IOException {
 
@@ -60,7 +60,7 @@ public class FileUtils {
      *
      * @param file the file to read
      * @return A collection of strings
-     * @throws IOException
+     * @throws IOException IOExcption
      */
     public static Collection<String> readFileToString(File file) throws IOException {
 
