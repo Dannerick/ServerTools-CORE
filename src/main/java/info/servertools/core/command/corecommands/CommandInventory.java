@@ -78,7 +78,7 @@ public class CommandInventory extends ServerToolsCommand {
         else
             player = getPlayer(sender, astring[0]);
 
-        player.displayGUIChest(new InvPlayerWrapper((EntityPlayerMP) sender, player));
+        ((EntityPlayerMP)sender).displayGUIChest(new InvPlayerWrapper((EntityPlayerMP) sender, player));
     }
 
     public static class InvPlayerWrapper implements IInventory {
