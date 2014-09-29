@@ -15,10 +15,8 @@
  */
 package info.servertools.core.util;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import info.servertools.core.lib.Reference;
 import org.apache.logging.log4j.Logger;
 
@@ -77,38 +75,5 @@ public final class GsonUtils {
             if (logger != null)
                 logger.error("An unknown error occured when writing the file to disk", t);
         }
-    }
-
-    /**
-     * Read an object from file using GSON
-     *
-     * @param file
-     *         the file to read
-     * @param logger
-     *         the optional logger to log to (May be <code>null</code>)
-     * @param <T>
-     *         the type of the object
-     *
-     * @return the object
-     */
-    public static <T> T fromJson(File file, Logger logger) {
-
-        T obj = null;
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Reference.FILE_ENCODING))) {
-            obj = gson.fromJson(reader, new TypeToken<T>() {
-            }.getType());
-        } catch (JsonSyntaxException e) {
-            if (logger != null)
-                logger.error("Failed to parse file as valid json", e);
-        } catch (IOException e) {
-            if (logger != null)
-                logger.error("Failed to read file from disk", e);
-        } catch (Throwable t) {
-            if (logger != null)
-                logger.error("An unknown error occured when reading the file from disk", t);
-        }
-
-        return obj;
     }
 }

@@ -15,11 +15,14 @@
  */
 package info.servertools.core.chat;
 
+import com.google.common.io.Files;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gnu.trove.map.hash.THashMap;
 import info.servertools.core.ServerTools;
+import info.servertools.core.lib.Reference;
 import info.servertools.core.util.GsonUtils;
 import info.servertools.core.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +32,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -50,13 +55,16 @@ public class NickHandler {
         this.saveFile = saveFile;
 
         if (saveFile.exists()) {
-            nickMap = GsonUtils.fromJson(saveFile, ServerTools.LOG);
-        } else {
-            save();
-        }
-
-        if (nickMap == null) {
-            nickMap = new HashMap<>();
+            try {
+                String data = Files.toString(saveFile, Reference.CHARSET);
+                Type type = new TypeToken<Map<UUID, String>>() {}.getType();
+                nickMap = gson.fromJson(data, type);
+            } catch (IOException e) {
+                ServerTools.LOG.error("Failed to load nicknames from disk", e);
+            } finally {
+                if (nickMap == null)
+                    nickMap = new HashMap<>();
+            }
         }
     }
 
