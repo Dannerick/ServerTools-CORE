@@ -175,7 +175,7 @@ public class CommandInventory extends ServerToolsCommand {
         @Override
         public String getInventoryName() {
 
-            return player.getDisplayName();
+            return player.getCommandSenderName();
         }
 
         @Override
