@@ -23,8 +23,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gnu.trove.map.hash.THashMap;
 import info.servertools.core.ServerTools;
 import info.servertools.core.lib.Reference;
+import info.servertools.core.util.ChatUtils;
 import info.servertools.core.util.GsonUtils;
-import info.servertools.core.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumChatFormatting;
@@ -86,7 +86,7 @@ public class NickHandler {
         nickMap.put(player.getPersistentID(), nick);
         player.refreshDisplayName();
         save();
-        MinecraftServer.getServer().getConfigurationManager().sendChatMsg(Util.getChatComponent(
+        MinecraftServer.getServer().getConfigurationManager().sendChatMsg(ChatUtils.getChatComponent(
                 String.format("%s is now known as %s", player.getGameProfile().getName(), nick), EnumChatFormatting.GRAY));
     }
 }

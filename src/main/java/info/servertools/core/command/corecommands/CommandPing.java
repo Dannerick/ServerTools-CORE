@@ -17,7 +17,7 @@ package info.servertools.core.command.corecommands;
 
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
-import info.servertools.core.util.Util;
+import info.servertools.core.util.ChatUtils;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -47,6 +47,6 @@ public class CommandPing extends ServerToolsCommand {
         if (!(sender instanceof EntityPlayerMP))
             throw new WrongUsageException("Must be used by a player");
 
-        sender.addChatMessage(Util.getChatComponent(String.format("Your ping is %s ms", ((EntityPlayerMP) sender).ping), EnumChatFormatting.WHITE));
+        sender.addChatMessage(ChatUtils.getChatComponent(String.format("Your ping is %s ms", ((EntityPlayerMP) sender).ping), EnumChatFormatting.WHITE));
     }
 }

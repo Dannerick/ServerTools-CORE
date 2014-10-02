@@ -17,7 +17,7 @@ package info.servertools.core.command.corecommands;
 
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
-import info.servertools.core.util.Util;
+import info.servertools.core.util.ChatUtils;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerNotFoundException;
 import net.minecraft.command.WrongUsageException;
@@ -120,6 +120,6 @@ public class CommandTPS extends ServerToolsCommand {
 
     private static void sendToChat(ICommandSender sender, String string) {
 
-        sender.addChatMessage(Util.getChatComponent(string, EnumChatFormatting.WHITE));
+        sender.addChatMessage(ChatUtils.getChatComponent(string, EnumChatFormatting.WHITE));
     }
 }

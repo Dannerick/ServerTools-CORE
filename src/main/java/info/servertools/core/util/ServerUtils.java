@@ -108,7 +108,11 @@ public final class ServerUtils {
      *
      * @return if the player is OP
      */
+    @SuppressWarnings("SimplifiableIfStatement")
     public static boolean isOP(GameProfile profile) {
+        if (MinecraftServer.getServer().isSinglePlayer() && MinecraftServer.getServer().getServerOwner().equals(profile.getName()))
+            return true;
+
         return MinecraftServer.getServer().getConfigurationManager().getOppedPlayers().hasEntry(profile);
     }
 }

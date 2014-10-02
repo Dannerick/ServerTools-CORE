@@ -17,7 +17,7 @@ package info.servertools.core.command.corecommands;
 
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
-import info.servertools.core.util.Util;
+import info.servertools.core.util.ChatUtils;
 import net.minecraft.command.ICommandSender;
 
 import static net.minecraft.util.EnumChatFormatting.*;
@@ -47,6 +47,6 @@ public class CommandMemory extends ServerToolsCommand {
         long freeMemory = Runtime.getRuntime().freeMemory() / 1048576L;
         long usedMemory = totalMemory - freeMemory;
 
-        sender.addChatMessage(Util.getChatComponent(String.format("%s%s MB%s out of %s%s MB%s Used", AQUA, usedMemory, RESET, AQUA, totalMemory, RESET), WHITE));
+        sender.addChatMessage(ChatUtils.getChatComponent(String.format("%s%s MB%s out of %s%s MB%s Used", AQUA, usedMemory, RESET, AQUA, totalMemory, RESET), WHITE));
     }
 }
