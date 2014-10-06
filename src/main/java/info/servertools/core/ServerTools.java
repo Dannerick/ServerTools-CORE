@@ -57,6 +57,22 @@ public class ServerTools {
     public BlockLogger blockLogger;
 
     @Mod.EventHandler
+    public void fingerprintViolation(FMLFingerprintViolationEvent event) {
+        LOG.warn("****************************************************");
+        LOG.warn("*     Invalid ServerTools Fingerprint Detected     *");
+        LOG.warn("****************************************************");
+        LOG.warn("* Expected: " + event.expectedFingerprint);
+        LOG.warn("****************************************************");
+        LOG.warn("* Received: ");
+        for (String fingerprint : event.fingerprints) {
+            LOG.warn("*   " + fingerprint);
+        }
+        LOG.warn("****************************************************");
+        LOG.warn("*Unpredictable results may occur, please relownload*");
+        LOG.warn("****************************************************");
+    }
+
+    @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
         /* Initialize the Core Configuration */
