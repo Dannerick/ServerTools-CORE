@@ -18,7 +18,7 @@ package info.servertools.core.command.corecommands;
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
 import info.servertools.core.lib.Strings;
-import info.servertools.core.util.Util;
+import info.servertools.core.util.ChatUtils;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerNotFoundException;
 import net.minecraft.command.WrongUsageException;
@@ -85,13 +85,13 @@ public class CommandEntityCount extends ServerToolsCommand {
                 count += entry.getValue();
             }
 
-            sender.addChatMessage(Util.getChatComponent("Entity Count: " + count, EnumChatFormatting.WHITE));
+            sender.addChatMessage(ChatUtils.getChatComponent("Entity Count: " + count, EnumChatFormatting.WHITE));
         } else if ("all".equalsIgnoreCase(args[0])) {
 
-            sender.addChatMessage(Util.getChatComponent("Entity Count:", EnumChatFormatting.WHITE));
+            sender.addChatMessage(ChatUtils.getChatComponent("Entity Count:", EnumChatFormatting.WHITE));
 
             for (Map.Entry<String, Integer> entry : entityCount.entrySet()) {
-                sender.addChatMessage(Util.getChatComponent(String.format("  %s: %s", entry.getKey(), entry.getValue()), EnumChatFormatting.WHITE));
+                sender.addChatMessage(ChatUtils.getChatComponent(String.format("  %s: %s", entry.getKey(), entry.getValue()), EnumChatFormatting.WHITE));
             }
         } else {
 
@@ -115,7 +115,7 @@ public class CommandEntityCount extends ServerToolsCommand {
                 }
             }
 
-            sender.addChatMessage(Util.getChatComponent(String.format("Entity: %s, Count: %s", name, count), EnumChatFormatting.WHITE));
+            sender.addChatMessage(ChatUtils.getChatComponent(String.format("Entity: %s, Count: %s", name, count), EnumChatFormatting.WHITE));
         }
 
     }

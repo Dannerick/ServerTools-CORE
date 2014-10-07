@@ -22,8 +22,8 @@ import info.servertools.core.CoreConfig;
 import info.servertools.core.ServerTools;
 import info.servertools.core.lib.Reference;
 import info.servertools.core.lib.Strings;
+import info.servertools.core.util.ChatUtils;
 import info.servertools.core.util.FileUtils;
-import info.servertools.core.util.Util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 import org.apache.logging.log4j.Level;
@@ -71,7 +71,7 @@ public class Motd {
 
         for (String line : motd) {
             line = line.replace("$PLAYER$", player.getDisplayName());
-            player.addChatComponentMessage(Util.getChatComponent(line, EnumChatFormatting.WHITE));
+            player.addChatComponentMessage(ChatUtils.getChatComponent(line, EnumChatFormatting.WHITE));
         }
     }
 

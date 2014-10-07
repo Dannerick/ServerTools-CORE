@@ -19,7 +19,7 @@ import info.servertools.core.ServerTools;
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
 import info.servertools.core.lib.Strings;
-import info.servertools.core.util.Util;
+import info.servertools.core.util.ChatUtils;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
@@ -81,7 +81,7 @@ public class CommandVoice extends ServerToolsCommand {
                     if (ServerTools.instance.voiceHandler.removeVoice(args[1])) {
                         notifyOperators(sender, this, String.format(Strings.COMMAND_VOICE_REMOVE, args[1]));
                     } else {
-                        sender.addChatMessage(Util.getChatComponent(Strings.COMMAND_VOICE_REMOVE_NOUSER, EnumChatFormatting.RED));
+                        sender.addChatMessage(ChatUtils.getChatComponent(Strings.COMMAND_VOICE_REMOVE_NOUSER, EnumChatFormatting.RED));
                     }
                 } else
                     throw new WrongUsageException(getCommandUsage(sender));

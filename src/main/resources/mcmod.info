@@ -4,7 +4,7 @@
   "name": "ServerTools",
   "version": "${version}",
   "description": "Server administration and utilities mod",
-  "url": "https://github.com/matthewprenger/ServerTools",
+  "url": "http://servertools.info",
   "authorList": ["matthewprenger"],
   "credits": "Forge, FML, and MCP for making this project possible",
   "dependencies": []

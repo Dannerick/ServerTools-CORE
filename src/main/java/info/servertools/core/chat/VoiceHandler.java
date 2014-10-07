@@ -22,9 +22,9 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import info.servertools.core.CoreConfig;
 import info.servertools.core.ServerTools;
 import info.servertools.core.lib.Strings;
+import info.servertools.core.util.ChatUtils;
 import info.servertools.core.util.FileUtils;
 import info.servertools.core.util.ServerUtils;
-import info.servertools.core.util.Util;
 import net.minecraft.command.server.CommandBroadcast;
 import net.minecraft.command.server.CommandEmote;
 import net.minecraft.command.server.CommandMessage;
@@ -189,7 +189,7 @@ public class VoiceHandler {
 
         if (isUserSilenced(event.username)) {
             event.setCanceled(true);
-            event.player.addChatComponentMessage(Util.getChatComponent(Strings.ERROR_SILENCED, EnumChatFormatting.RED));
+            event.player.addChatComponentMessage(ChatUtils.getChatComponent(Strings.ERROR_SILENCED, EnumChatFormatting.RED));
         }
 
     }
@@ -201,7 +201,7 @@ public class VoiceHandler {
             if (event.command instanceof CommandBroadcast || event.command instanceof CommandMessage || event.command instanceof CommandEmote || event.command instanceof CommandMessageRaw) {
 
                 event.setCanceled(true);
-                event.sender.addChatMessage(Util.getChatComponent(Strings.ERROR_SILENCED, EnumChatFormatting.RED));
+                event.sender.addChatMessage(ChatUtils.getChatComponent(Strings.ERROR_SILENCED, EnumChatFormatting.RED));
             }
         }
     }

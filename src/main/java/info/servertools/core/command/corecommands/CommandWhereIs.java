@@ -17,7 +17,7 @@ package info.servertools.core.command.corecommands;
 
 import info.servertools.core.command.CommandLevel;
 import info.servertools.core.command.ServerToolsCommand;
-import info.servertools.core.util.Util;
+import info.servertools.core.util.ChatUtils;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -71,6 +71,6 @@ public class CommandWhereIs extends ServerToolsCommand {
                 f.format(player.posX), f.format(player.posY), f.format(player.posZ),
                 player.worldObj.provider.dimensionId + "-" + player.worldObj.provider.getDimensionName());
 
-        icommandsender.addChatMessage(Util.getChatComponent(str, EnumChatFormatting.WHITE));
+        icommandsender.addChatMessage(ChatUtils.getChatComponent(str, EnumChatFormatting.WHITE));
     }
 }

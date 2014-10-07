@@ -32,7 +32,10 @@ public class Util {
      *         any formatting to add
      *
      * @return the component
+     *
+     * @deprecated Use {@link info.servertools.core.util.ChatUtils#getChatComponent(String, net.minecraft.util.EnumChatFormatting)}
      */
+    @Deprecated
     public static ChatComponentStyle getChatComponent(Object message, EnumChatFormatting formatting) {
 
         ChatComponentText componentText = new ChatComponentText(message.toString());

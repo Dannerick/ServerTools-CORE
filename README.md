@@ -1,46 +1,57 @@
-Server Tools
-========
+# ServerTools
+#### Website: [servertools.info](http://servertools.info)
 
-Servertools is a server-side minecraft mod that adds a variety of utilities and commands. This is the core repository and other repositories exist for backups, permission systems, etc.
+ServerTools is a mod for Minecraft that gives server administrators powerful tools to manage their server.
 
-[Minecraft Forums Thread] (http://www.minecraftforum.net/topic/1835347-)
+## Members
+* [matthewprenger](https://github.com/matthewprenger) (Owner/Project Lead)
 
-[Curse Forge Page] (http://www.curse.com/mc-mods/minecraft/forgeservertools)
+## Modules
+ServerTools has a few modules that can also be installed for additional features.
 
-##Depending on ServerTools
-```groovy
-repositories {
-    mavenCentral()
-    maven {
-        name 'Matthews Maven Repo'
-        url 'http://maven.matthewprenger.com'
-    }
-}
+|Module     |Description                                                            |
+|-----------|-----------------------------------------------------------------------|
+|Backup     |Adds the ability to perform server backups on demand and automatically |
+|Permission |Adds a powerful permission system to separate users into groups        |
+|Teleport   |Adds a variety of ways to teleport around the server                   |
 
-dependencies {
-    compile 'com.matthewprenger.servertools:ServerTools-CORE:1.7.10-2.1.0.41:deobf'
-}
+## Developing
+If you forked this repository and want to help contribute, follow the following steps:
+
+1. Clone the repo to a folder on your computer.
+2. Open a terminal/command window in the root folder of the repo.
+3. Type: `gradlew setupDecompWorkspace` and hit ENTER.
+
+#### Intellij Idea
+1. Choose Import Project, and select the `build.gradle` file.
+2. Click OK on the gradle project window.
+
+#### Eclipse
+1. In the same terminal as before, type: `gradlew eclipse`.
+2. Import the repo folder as an eclipse project.
+
+## Building the Mod
+If for whatever reason you want to build your own copy of the mod, you can! ServerTools leverages the power of [Gradle](http://gradle.org) to make building easy. Follow the following steps to build your copy of ServerTools:
+
+1. Clone or download this repo to your computer.
+2. Open a terminal/command window in the root folder of the repo.
+3. Type: `gradlew setupCIWorkspace build` or on Windows: `gradlew.bat setupCIWorkspace build`, and hit ENTER.
+4. Your jar will output to `PROJECTDIR/build/libs/`.
+
+## License
+
 ```
+Copyright 2014 ServerTools Contributors
 
-Just add the above code to your build.gradle, refresh your project, and you will have access to ServerTools code.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use software except in compliance with the License.
+You may obtain a copy of the License at
 
+    http://www.apache.org/licenses/LICENSE-2.0
 
-[License](LICENSE)
--------
-	Copyright 2014 Matthew Prenger
-
-	Licensed under the Apache License, Version 2.0 (the "License");
-	you may not use this file except in compliance with the License.
-	You may obtain a copy of the License at
-
-	http://www.apache.org/licenses/LICENSE-2.0
-
-	Unless required by applicable law or agreed to in writing, software
-	distributed under the License is distributed on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	See the License for the specific language governing permissions and
-	limitations under the License.
-
-Building
---------
-If you just want to build the mod, run `gradlew setupCIWorkspace build` and grab your jar from `build/libs`
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

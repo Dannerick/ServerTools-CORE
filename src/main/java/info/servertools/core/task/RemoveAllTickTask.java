@@ -16,7 +16,7 @@
 package info.servertools.core.task;
 
 import info.servertools.core.ServerTools;
-import info.servertools.core.util.Util;
+import info.servertools.core.util.ChatUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -65,10 +65,10 @@ public class RemoveAllTickTask implements ITickTask {
             }
         }
 
-        player.addChatComponentMessage(Util.getChatComponent(String.format("Removing %s blocks", blockCounter), EnumChatFormatting.GOLD));
+        player.addChatComponentMessage(ChatUtils.getChatComponent(String.format("Removing %s blocks", blockCounter), EnumChatFormatting.GOLD));
 
         if (blockCounter > LAG_THREASHOLD)
-            player.addChatComponentMessage(Util.getChatComponent("Removing a lot of blocks, Incomming lag", EnumChatFormatting.RED));
+            player.addChatComponentMessage(ChatUtils.getChatComponent("Removing a lot of blocks, Incomming lag", EnumChatFormatting.RED));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class RemoveAllTickTask implements ITickTask {
     @Override
     public void onComplete() {
 
-        player.addChatComponentMessage(Util.getChatComponent("Finished removing blocks", EnumChatFormatting.GREEN));
+        player.addChatComponentMessage(ChatUtils.getChatComponent("Finished removing blocks", EnumChatFormatting.GREEN));
     }
 
     @Override
