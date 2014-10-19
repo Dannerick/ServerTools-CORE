@@ -61,7 +61,7 @@ public abstract class ServerToolsCommand extends CommandBase {
         if (getCommandLevel().equals(CommandLevel.OP) && ServerUtils.isOP(player.getGameProfile()))
             return true;
 
-        if (MinecraftServer.getServer().getConfigurationManager().commandsAllowedForAll)
+        if (MinecraftServer.getServer().getConfigurationManager().canSendCommands(player.getGameProfile()))
             return true;
 
         return false;
