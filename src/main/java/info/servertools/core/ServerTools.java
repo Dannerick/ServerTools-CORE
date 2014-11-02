@@ -42,6 +42,7 @@ public class ServerTools {
     public static final Logger LOG = LogManager.getLogger(Reference.MOD_NAME);
 
     static {
+        //noinspection ResultOfMethodCallIgnored
         serverToolsDir.mkdirs();
     }
 
