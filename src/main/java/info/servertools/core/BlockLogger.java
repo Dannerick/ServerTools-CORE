@@ -41,6 +41,7 @@ public class BlockLogger {
         if (logDirectory.exists() && !logDirectory.isDirectory())
             throw new IllegalArgumentException("File with same name as block logging directory detected");
 
+        //noinspection ResultOfMethodCallIgnored
         logDirectory.mkdirs();
 
         this.logDirectory = logDirectory;

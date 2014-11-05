@@ -19,6 +19,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,6 +49,7 @@ public final class ServerUtils {
      *
      * @return the EntityPlayer, or <code>null</code> if the player does not exist
      */
+    @Nullable
     public static EntityPlayerMP getPlayerForUUID(UUID uuid) {
 
         Util.checkNotNull(uuid);
@@ -69,6 +71,7 @@ public final class ServerUtils {
      *
      * @return the EntityPlayer, or <code>null</code> if the player does not exist
      */
+    @Nullable
     public static EntityPlayerMP getPlayerForUsername(String username) {
 
         Util.checkNotNull(username);
