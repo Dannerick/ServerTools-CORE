@@ -15,14 +15,16 @@
  */
 package info.servertools.core.lib;
 
+import static info.servertools.core.lib.Reference.LINE_SEPARATOR;
+
 public class Strings {
 
     /* MOTD */
-    public static final String[] MOTD_DEFAULT = new String[]{
-            "Hello, $PLAYER$!",
-            "This is the default MOTD. In order to change it,",
-            "edit the motd.txt in the servertools directory"
-    };
+    public static final String MOTD_DEFAULT =
+            "Hello, $PLAYER$!" + LINE_SEPARATOR +
+            "This is the default MOTD. In order to change it," + LINE_SEPARATOR +
+            "edit the motd.txt in the servertools directory";
+
     public static final String MOTD_RELOAD = "Reloaded the MOTD from file";
 
     /* Voice / Silence */
