@@ -38,7 +38,8 @@ publishing {
                 }
             }
 
-            from components.java
+            //from components.java
+            artifact jar
             artifact sourceJar
             artifact javadocJar
             artifact deobfJar
